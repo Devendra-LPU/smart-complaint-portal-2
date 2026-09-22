@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Complaint Portal</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <span>Smart</span> Complaint Portal
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#complaint">Complaint</a>
+            <a href="#track">Track</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+
+        <div class="hero-content">
+
+            <h1>Smart Complaint Portal</h1>
+
+            <p>
+                Report sanitation, water supply and other community
+                problems easily and track their status online.
+            </p>
+
+            <a href="#complaint" class="btn">
+                Register Complaint
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- Features -->
+    <section class="features">
+
+        <h2>How It Works</h2>
+
+        <div class="feature-container">
+
+            <div class="feature-card">
+                <div class="icon">📝</div>
+                <h3>Submit Complaint</h3>
+                <p>
+                    Fill out the complaint form with the required details.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🔍</div>
+                <h3>Track Complaint</h3>
+                <p>
+                    Use your complaint ID to check the current status.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">✅</div>
+                <h3>Get Resolution</h3>
+                <p>
+                    Track your complaint until it is resolved.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Complaint Form -->
+    <section id="complaint" class="section">
+
+        <div class="container">
+
+            <h2>Register a Complaint</h2>
+
+            <p class="section-text">
+                Please provide correct information about the problem.
+            </p>
+
+            <form id="complaintForm">
+
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your name"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        placeholder="Enter mobile number"
+                        maxlength="10"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="category">Complaint Category</label>
+
+                    <select id="category" required>
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        <option value="Sanitation">
+                            Sanitation
+                        </option>
+
+                        <option value="Water Supply">
+                            Water Supply
+                        </option>
+
+                        <option value="Road">
+                            Road Problem
+                        </option>
+
+                        <option value="Electricity">
+                            Electricity
+                        </option>
+
+                        <option value="Garbage">
+                            Garbage Collection
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="location">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        placeholder="Enter problem location"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Complaint Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        rows="5"
+                        placeholder="Describe your problem..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <button type="submit" class="submit-btn">
+                    Submit Complaint
+                </button>
+
+            </form>
+
+
+            <!-- Success Message -->
+            <div
+                id="successMessage"
+                class="success-message"
+            >
+
+                <h3>Complaint Submitted Successfully!</h3>
+
+                <p>
+                    Your Complaint ID is:
+                </p>
+
+                <strong id="generatedId"></strong>
+
+                <p>
+                    Please save this ID for tracking your complaint.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Track Complaint -->
+    <section id="track" class="section track-section">
+
+        <div class="container">
+
+            <h2>Track Complaint</h2>
+
+            <p class="section-text">
+                Enter your complaint ID to check its status.
+            </p>
+
+
+            <div class="track-box">
+
+                <input
+                    type="text"
+                    id="trackId"
+                    placeholder="Example: SCP123456"
+                >
+
+                <button
+                    onclick="trackComplaint()"
+                    class="track-btn"
+                >
+                    Track
+                </button>
+
+            </div>
+
+
+            <div
+                id="trackResult"
+                class="track-result"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- All Complaints -->
+    <section class="section complaints-section">
+
+        <div class="container">
+
+            <h2>Complaint Dashboard</h2>
+
+            <div class="dashboard-controls">
+
+                <input
+                    type="text"
+                    id="searchComplaint"
+                    placeholder="Search by Complaint ID..."
+                    oninput="displayComplaints()"
+                >
+
+
+                <select
+                    id="statusFilter"
+                    onchange="displayComplaints()"
+                >
+
+                    <option value="All">
+                        All Status
+                    </option>
+
+                    <option value="Submitted">
+                        Submitted
+                    </option>
+
+                    <option value="Under Review">
+                        Under Review
+                    </option>
+
+                    <option value="Resolved">
+                        Resolved
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div id="complaintList">
+
+                <!-- Complaints will appear here -->
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- About -->
+    <section id="about" class="about">
+
+        <div class="container">
+
+            <h2>About Smart Complaint Portal</h2>
+
+            <p>
+                Smart Complaint Portal is a web-based application
+                designed to help citizens report and track
+                community-related problems such as sanitation,
+                water supply, garbage collection, road problems
+                and electricity issues.
+            </p>
+
+            <p>
+                The application uses HTML, CSS and JavaScript.
+                Complaint information is stored locally in the
+                browser using LocalStorage.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 Smart Complaint Portal
+        </p>
+
+        <p>
+            Developed using HTML, CSS & JavaScript
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
